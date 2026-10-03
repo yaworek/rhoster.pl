@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>rhoster — My ogarniamy hosting. Ty ogarniasz biznes.</title>
+  <meta name="description" content="rhoster — niezawodny hosting dla WordPress i sklepów internetowych. Bezpieczeństwo, szybkość, codzienne kopie bezpieczeństwa, GTM server-side, poczta w Twojej domenie. My ogarniamy hosting i bezpieczeństwo. Ty ogarniasz biznes." />
+  <meta name="author" content="rhoster.pl" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="rhoster — My ogarniamy hosting. Ty ogarniasz biznes." />
+  <meta property="og:description" content="Niezawodny hosting dla WordPress i sklepów internetowych. Bezpieczeństwo, szybkość i spokój głowy — w pakiecie." />
+  <meta property="og:site_name" content="rhoster.pl" />
+  <meta property="og:locale" content="pl_PL" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "rhoster",
+    "url": "https://rhoster.pl",
+    "description": "rhoster oferuje niezawodny hosting dla WordPress i sklepów internetowych. Bezpieczeństwo, GTM server-side, codzienne kopie zapasowe, poczta w własnej domenie, DevOps i zarządzanie infrastrukturą.",
+    "slogan": "My ogarniamy hosting i bezpieczeństwo. Ty ogarniasz biznes.",
+    "inLanguage": ["pl", "en"],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Pakiety hostingowe rhoster",
+      "itemListElement": [
+        {
+          "@type": "Offer",
+          "name": "rBasic",
+          "description": "Hosting dla WordPress. Pojemność 5 GB, 1 konto e-mail, PHP 8.3+, SSH, codzienne kopie zapasowe, GTM server-side, SSL, SLA 99%.",
+          "price": "349",
+          "priceCurrency": "PLN",
+          "priceSpecification": {"@type": "UnitPriceSpecification","billingDuration": "P1Y"}
+        },
+        {
+          "@type": "Offer",
+          "name": "rStore",
+          "description": "Hosting dla sklepu internetowego. Pojemność 25 GB, transfer bez limitu, 3 konta e-mail, PHP 8.3+, SSH, GTM server-side, SSL, codzienne kopie zapasowe.",
+          "price": "649",
+          "priceCurrency": "PLN",
+          "priceSpecification": {"@type": "UnitPriceSpecification","billingDuration": "P1Y"}
+        },
+        {
+          "@type": "Offer",
+          "name": "rCustom",
+          "description": "Dedykowany hosting, DevOps i zarządzanie infrastrukturą. Dostępny wyłącznie z polecenia. Wycena indywidualna.",
+          "availability": "https://schema.org/LimitedAvailability"
+        },
+        {
+          "@type": "Offer",
+          "name": "rCluster",
+          "description": "Infrastruktura wysokiej dostępności: load balancer + 2 serwery aplikacyjne, automatyczne przełączanie ruchu przy awarii, redundantna kopia danych 7 dni wstecz, redundantny SMTP, opieka i monitoring, SSL, SLA 99,99%.",
+          "price": "590",
+          "priceCurrency": "PLN",
+          "priceSpecification": {"@type": "UnitPriceSpecification","billingDuration": "P1M"}
+        }
+      ]
+    },
+    "knowsAbout": ["WordPress hosting","e-commerce hosting","SSL","GTM server-side","DevOps","cybersecurity","email hosting","infrastructure management"]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Co to jest rhoster?","acceptedAnswer":{"@type":"Answer","text":"rhoster to firma hostingowa oferująca niezawodny hosting dla WordPress i sklepów internetowych, bezpieczeństwo, GTM server-side, codzienne kopie bezpieczeństwa i pocztę e-mail we własnej domenie. My ogarniamy hosting i bezpieczeństwo. Ty ogarniasz biznes."}},
+      {"@type":"Question","name":"Jakie pakiety oferuje rhoster?","acceptedAnswer":{"@type":"Answer","text":"rhoster oferuje cztery pakiety: rBasic (hosting dla WordPress, 5 GB, PHP 8.3, SSH, 349 zł netto/rok), rStore (hosting dla sklepu internetowego, 25 GB, transfer bez limitu, PHP 8.3, 649 zł netto/rok), rCluster (infrastruktura wysokiej dostępności: load balancer + 2 serwery aplikacyjne, SLA 99,99%, od 590 zł netto/miesiąc) oraz rCustom (dedykowany hosting i DevOps, dostępny wyłącznie z polecenia, wycena indywidualna). Wszystkie pakiety zawierają SSL i GTM server-side."}},
+      {"@type":"Question","name":"Co to jest GTM server-side?","acceptedAnswer":{"@type":"Answer","text":"GTM server-side (Google Tag Manager Server-Side) to technologia uruchamiania tagów analitycznych po stronie serwera. Poprawia wydajność strony, bezpieczeństwo danych i dokładność śledzenia. rhoster oferuje GTM server-side w każdym pakiecie."}},
+      {"@type":"Question","name":"Jak skontaktować się z rhoster?","acceptedAnswer":{"@type":"Answer","text":"rhoster pracuje wyłącznie z klientami z polecenia. Pakiet rCustom oraz usługi DevOps są dostępne wyłącznie poprzez rekomendacje obecnych klientów."}}
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --surface-card: #FFFFFF;
+      --border: rgba(11, 30, 54, 0.08);
+      --border-strong: rgba(11, 30, 54, 0.16);
+      --accent: #0284C7;        /* Ciemniejszy, kontrastowy niebieski akcent na jasne tło */
+      --accent-light: #38BDF8;  /* Jasnoniebieski jak w akcencie logo */
+      --accent-dim: rgba(2, 132, 199, 0.08);
+      --text-primary: #0B1E36;
+      --text-muted: #475569;
+      --text-faint: #94A3B8;
+      --navy-brand: #0B1E36;
+      --mono: 'DM Mono', monospace;
+      --serif: 'DM Serif Display', Georgia, serif;
+      --max: 960px;
+      --card-shadow: 0 4px 20px -2px rgba(11, 30, 54, 0.05), 0 2px 6px -1px rgba(11, 30, 54, 0.03);
+      --card-shadow-hover: 0 12px 28px -4px rgba(11, 30, 54, 0.08), 0 4px 12px -2px rgba(11, 30, 54, 0.04);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: var(--mono);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Subtle grid pattern for light mode */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none; z-index: 0;
+    }
+
+    .glow {
+      position: fixed;
+      width: 900px; height: 900px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(2, 132, 199, 0.05) 0%, transparent 70%);
+      top: -150px; left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none; z-index: 0;
+    }
+
+    .wrap { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 2rem; }
+
+    /* NAV */
+    nav { padding: 2rem 0; display: flex; align-items: center; justify-content: space-between; }
+    nav svg { height: 38px; width: auto; }
+    .nav-tag { 
+      font-size: 10px; 
+      letter-spacing: 0.18em; 
+      text-transform: uppercase; 
+      color: var(--text-muted); 
+      background: var(--surface);
+      border: 1px solid var(--border-strong); 
+      padding: 5px 14px; 
+      border-radius: 6px; 
+      font-weight: 500;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    /* HERO */
+    .hero { padding: 5rem 0 4rem; text-align: center; }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); background: var(--accent-dim);
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      padding: 6px 16px; border-radius: 100px;
+      margin-bottom: 2.2rem; font-weight: 500;
+      opacity: 0; animation: fadeDown 0.6s ease 0.1s forwards;
+    }
+
+    .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(0.6)} }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: 1.08; letter-spacing: -0.02em;
+      color: var(--navy-brand);
+      margin-bottom: 1.25rem;
+      opacity: 0; animation: fadeDown 0.7s ease 0.25s forwards;
+    }
+    h1 em { color: var(--accent); font-style: italic; }
+
+    .hero-sub { font-size: clamp(14px, 1.8vw, 16px); color: var(--text-muted); max-width: 580px; margin: 0 auto 0.4rem; line-height: 1.7; opacity: 0; animation: fadeDown 0.6s ease 0.4s forwards; }
+    .hero-sub-en { font-size: clamp(12px, 1.4vw, 13px); color: var(--text-faint); max-width: 580px; margin: 0 auto; line-height: 1.7; font-style: italic; opacity: 0; animation: fadeDown 0.6s ease 0.5s forwards; }
+
+    /* DIVIDER */
+    .section-divider { height: 1px; background: linear-gradient(90deg, transparent, var(--border-strong), transparent); margin: 4.5rem 0; }
+
+    /* FEATURES */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+
+    .feature-card { 
+      background: var(--surface-card); 
+      border: 1px solid var(--border-strong); 
+      border-radius: 12px; 
+      overflow: hidden; 
+      box-shadow: var(--card-shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow-hover);
+    }
+    .feature-card-header { display: flex; align-items: center; gap: 8px; padding: 11px 16px; background: rgba(11, 30, 54, 0.02); border-bottom: 1px solid var(--border); }
+    .dot-r { width: 8px; height: 8px; border-radius: 50%; background: rgba(11, 30, 54, 0.12); border: 1px solid rgba(11, 30, 54, 0.15); }
+    .feature-card-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-left: 2px; font-weight: 500; }
+    .feature-card-body { padding: 1.35rem 1.5rem; }
+    .feature-icon { width: 38px; height: 38px; border-radius: 8px; background: var(--accent-dim); border: 1px solid rgba(2, 132, 199, 0.18); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .feature-title { font-family: var(--serif); font-size: 19px; color: var(--navy-brand); margin-bottom: 0.4rem; line-height: 1.2; }
+    .feature-desc { font-size: 12px; color: var(--text-muted); line-height: 1.65; margin-bottom: 4px; }
+    .feature-desc-en { font-size: 11px; color: var(--text-faint); font-style: italic; line-height: 1.55; }
+
+    /* PRICING */
+    .pricing-header { text-align: center; margin-bottom: 2.5rem; }
+    .section-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; font-weight: 500; }
+    h2 { font-family: var(--serif); font-size: clamp(28px, 4vw, 44px); color: var(--navy-brand); line-height: 1.15; }
+    h2 em { color: var(--accent); font-style: italic; }
+
+    /* TOGGLE */
+    .toggle-wrap { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 3rem; }
+    .toggle-label { font-size: 12px; letter-spacing: 0.06em; color: var(--text-muted); cursor: pointer; transition: color 0.2s; user-select: none; font-weight: 500; }
+    .toggle-label.active { color: var(--accent); font-weight: 500; }
+    .toggle-track { width: 46px; height: 26px; border-radius: 100px; background: #E2E8F0; border: 1px solid var(--border-strong); position: relative; cursor: pointer; transition: background 0.2s; }
+    .toggle-track.brutto { background: rgba(2, 132, 199, 0.18); border-color: rgba(2, 132, 199, 0.3); }
+    .toggle-thumb { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); transition: transform 0.2s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.15); }
+    .toggle-track.brutto .toggle-thumb { transform: translateX(20px); }
+
+    /* PRICING GRID — 3 columns */
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+
+    .pricing-card { 
+      background: var(--surface-card); 
+      border: 1px solid var(--border-strong); 
+      border-radius: 14px; 
+      overflow: hidden; 
+      box-shadow: var(--card-shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .pricing-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--card-shadow-hover);
+    }
+    .pricing-card.featured { 
+      border-color: var(--accent); 
+      box-shadow: 0 8px 30px -4px rgba(2, 132, 199, 0.15), 0 2px 6px -1px rgba(11, 30, 54, 0.04);
+      position: relative;
+    }
+
+    .pricing-card-header { display: flex; align-items: center; gap: 8px; padding: 12px 18px; background: rgba(11, 30, 54, 0.02); border-bottom: 1px solid var(--border); }
+    .pricing-card.featured .pricing-card-header { background: rgba(2, 132, 199, 0.06); border-bottom-color: rgba(2, 132, 199, 0.15); }
+    .pricing-card-name { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; }
+
+    .pricing-card-body { padding: 1.6rem 1.75rem; }
+    .pricing-desc { font-size: 13px; color: var(--text-primary); margin-bottom: 1.25rem; line-height: 1.5; font-weight: 500; }
+    .pricing-desc-en { font-size: 11px; color: var(--text-faint); font-style: italic; margin-bottom: 1.25rem; line-height: 1.5; margin-top: -0.75rem; }
+
+    .price-block { margin-bottom: 1.5rem; }
+    .price-amount { font-family: var(--serif); font-size: 50px; line-height: 1; color: var(--navy-brand); letter-spacing: -0.02em; }
+    .price-amount sup { font-size: 18px; vertical-align: super; color: var(--text-muted); font-family: var(--mono); font-weight: 500; }
+    .price-period { font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; margin-top: 6px; }
+    .price-tax-note { font-size: 10px; color: var(--text-faint); letter-spacing: 0.06em; margin-top: 2px; }
+
+    /* rCustom price placeholder */
+    .price-custom { margin-bottom: 1.5rem; }
+    .price-custom-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(2, 132, 199, 0.2);
+      border-radius: 6px;
+      padding: 8px 14px;
+      margin-bottom: 8px;
+    }
+    .price-custom-badge svg { flex-shrink: 0; }
+    .price-custom-label { font-size: 13px; font-weight: 500; color: var(--accent); letter-spacing: 0.04em; }
+    .price-custom-sub { font-size: 11px; color: var(--text-muted); font-style: italic; line-height: 1.5; }
+
+    /* FEAT LIST */
+    .feat-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .feat-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    .feat-list li::before { 
+      content: ''; 
+      flex-shrink: 0; 
+      width: 16px; 
+      height: 16px; 
+      margin-top: 1px; 
+      background: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='7' stroke='%230284C7' stroke-width='1.2'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%230284C7' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center; 
+    }
+    .feat-tag { display: inline-block; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: var(--accent-dim); border: 1px solid rgba(2, 132, 199, 0.2); padding: 1px 6px; border-radius: 3px; margin-left: 4px; vertical-align: middle; font-weight: 500; }
+    .feat-note { font-size: 10px; color: var(--text-faint); display: block; margin-top: 1px; font-style: italic; }
+    .feat-divider { height: 1px; background: var(--border); margin: 1.2rem 0; }
+
+    .ssl-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); background: var(--accent-dim); border: 1px solid rgba(2, 132, 199, 0.2); padding: 5px 12px; border-radius: 6px; font-weight: 500; }
+
+    /* DOTS */
+    .dot { position: fixed; border-radius: 50%; background: var(--accent); pointer-events: none; animation: drift linear infinite; z-index: 0; }
+    @keyframes drift { 0%{transform:translateY(0);opacity:0} 10%{opacity:0.08} 90%{opacity:0.04} 100%{transform:translateY(-100vh);opacity:0} }
+
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-14px)} to{opacity:1;transform:translateY(0)} }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .partners-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; margin: 0 auto; }
+    @media (max-width: 900px) { .partners-grid { grid-template-columns: repeat(2,1fr); max-width: 560px; } }
+    @media (max-width: 600px) { .partners-grid { grid-template-columns: 1fr; max-width: none; } }
+
+    /* FOOTER */
+    footer {
+      margin-top: 6rem;
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-strong);
+      position: relative;
+      z-index: 1;
+    }
+    .footer-top {
+      padding: 3.5rem 0 2.5rem;
+      display: grid;
+      grid-template-columns: 1.8fr 1fr 1fr;
+      gap: 3rem;
+    }
+    .footer-brand { display: flex; flex-direction: column; gap: 1rem; align-items: flex-start; }
+    .footer-brand svg { height: 32px; width: auto; }
+    .footer-slogan { font-size: 13px; color: var(--text-muted); max-width: 320px; line-height: 1.6; }
+    .footer-title { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-brand); font-weight: 500; margin-bottom: 1rem; }
+    .footer-list { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 12px; }
+    .footer-list a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .footer-list a:hover { color: var(--accent); }
+    .footer-note { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-faint);
+    }
+    .footer-bottom-links { display: flex; gap: 1.5rem; }
+    .footer-bottom-links a { color: var(--text-faint); text-decoration: none; transition: color 0.2s; }
+    .footer-bottom-links a:hover { color: var(--text-muted); }
+
+    /* SEO hidden */
+    .seo-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+
+    @media (max-width: 768px) {
+      .footer-top { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 3.5rem 0 2.5rem; }
+      .pricing-card-body { padding: 1.25rem; }
+    }
+  
+    /* NAV MENU */
+    .nav-logo { display: inline-flex; align-items: center; }
+    .nav-menu { display: flex; align-items: center; gap: 0.5rem; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
+    .nav-menu a {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 14px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      font-weight: 500;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .nav-menu a:hover { color: var(--accent); }
+    .nav-menu a[aria-current="page"] {
+      color: var(--navy-brand);
+      background: var(--surface);
+      border-color: var(--border-strong);
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    @media (max-width: 640px) {
+      nav { flex-direction: column; gap: 1.25rem; }
+      .nav-menu { justify-content: center; }
+      .nav-menu a { padding: 6px 10px; letter-spacing: 0.12em; }
+    }
+
+    /* FOOTER COMPANY */
+    .footer-company { border-top: 1px solid var(--border); padding: 1.5rem 0; font-size: 11px; color: var(--text-faint); line-height: 1.7; }
+    /* FOOTER — ciemny granat (kolory z wersji ciemnej) */
+    footer {
+      background: #092040;
+      border-top: 0;
+      color: #e8f6fd;
+    }
+    footer svg path[fill="#0B1E36"] { fill: #e8f6fd; }
+    footer svg path[fill="#38BDF8"] { fill: #65C5EF; }
+    footer .footer-slogan,
+    footer .footer-note,
+    footer .footer-list a { color: rgba(232,246,253,0.55); }
+    footer .footer-list a:hover { color: #65C5EF; }
+    footer .footer-title { color: #65C5EF; }
+    footer .footer-company { border-top-color: rgba(101,197,239,0.12); color: rgba(232,246,253,0.4); }
+    /* rCLUSTER — szeroka karta HA */
+    .cluster-card { margin-top: 1.25rem; }
+    .cluster-grid { display: grid; grid-template-columns: minmax(260px, 1fr) 1.35fr; }
+    .cluster-grid > .pricing-card-body + .pricing-card-body { border-left: 1px solid var(--border); background: rgba(11, 30, 54, 0.015); }
+    .price-from { font-family: var(--mono); font-size: 13px; color: var(--text-muted); margin-right: 6px; letter-spacing: 0; }
+    .cluster-title { font-family: var(--serif); font-size: 26px; color: var(--navy-brand); line-height: 1.15; margin-bottom: 0.9rem; }
+    .cluster-title em { color: var(--accent); }
+    .cluster-text { font-size: 12px; color: var(--text-muted); line-height: 1.7; margin-bottom: 1rem; }
+    .cluster-text strong { color: var(--navy-brand); font-weight: 500; }
+    .cluster-subtitle { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin: 1.4rem 0 0.8rem; }
+
+    /* DODATEK SMTP */
+    .addon-card { margin-top: 1.25rem; display: flex; align-items: center; gap: 1.75rem; padding: 1.35rem 1.75rem; background: var(--surface-card); border: 1px dashed rgba(2, 132, 199, 0.35); border-radius: 14px; }
+    .addon-main { flex: 1; }
+    .addon-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.35rem; }
+    .addon-title { font-family: var(--serif); font-size: 20px; color: var(--navy-brand); margin-bottom: 0.35rem; line-height: 1.2; }
+    .addon-desc { font-size: 12px; color: var(--text-muted); line-height: 1.65; }
+    .addon-price { text-align: right; flex-shrink: 0; }
+    .addon-price .price-amount { font-size: 38px; }
+
+    @media (max-width: 768px) {
+      .cluster-grid { grid-template-columns: 1fr; }
+      .cluster-grid > .pricing-card-body + .pricing-card-body { border-left: 0; border-top: 1px solid var(--border); }
+      .addon-card { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .addon-price { text-align: left; }
+    }
+    /* PRZEŁĄCZNIK MOTYWU */
+    .theme-toggle {
+      position: relative; width: 52px; height: 28px; margin-left: 0.5rem;
+      border-radius: 100px; border: 1px solid var(--border-strong); background: var(--surface);
+      cursor: pointer; padding: 0; transition: background 0.2s, border-color 0.2s;
+    }
+    .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .theme-thumb {
+      position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%;
+      background: var(--accent); display: grid; place-items: center;
+      transition: transform 0.25s ease; box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .theme-thumb svg { width: 12px; height: 12px; }
+    .theme-thumb .ico-moon { display: none; }
+    [data-theme="dark"] .theme-thumb { transform: translateX(24px); }
+    [data-theme="dark"] .theme-thumb .ico-sun { display: none; }
+    [data-theme="dark"] .theme-thumb .ico-moon { display: block; }
+
+    /* MOTYW CIEMNY — kolory z wersji ciemnej */
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #092040;
+      --surface: #0d2d58;
+      --surface-card: #0d2d58;
+      --border: rgba(101,197,239,0.12);
+      --border-strong: rgba(101,197,239,0.22);
+      --accent: #65C5EF;
+      --accent-light: #65C5EF;
+      --accent-dim: rgba(101,197,239,0.10);
+      --text-primary: #e8f6fd;
+      --text-muted: rgba(232,246,253,0.62);
+      --text-faint: rgba(232,246,253,0.36);
+      --navy-brand: #e8f6fd;
+      --card-shadow: 0 4px 20px -2px rgba(0,0,0,0.25), 0 2px 6px -1px rgba(0,0,0,0.15);
+      --card-shadow-hover: 0 12px 28px -4px rgba(0,0,0,0.35), 0 4px 12px -2px rgba(0,0,0,0.2);
+    }
+    [data-theme="dark"] .glow { background: radial-gradient(circle, rgba(101,197,239,0.07) 0%, transparent 70%); }
+    [data-theme="dark"] svg [fill="#0B1E36"] { fill: #e8f6fd; }
+    [data-theme="dark"] svg [fill="#38BDF8"],
+    [data-theme="dark"] svg [fill="#0284C7"] { fill: #65C5EF; }
+    [data-theme="dark"] svg [stroke="#0284C7"] { stroke: #65C5EF; }
+    [data-theme="dark"] .theme-thumb svg [stroke] { stroke: #092040; }
+    [data-theme="dark"] .feature-card-header,
+    [data-theme="dark"] .pricing-card-header,
+    [data-theme="dark"] .help-card-head,
+    [data-theme="dark"] .help-table th { background: rgba(101,197,239,0.04); }
+    [data-theme="dark"] .dot-r { background: rgba(101,197,239,0.18); border-color: rgba(101,197,239,0.25); }
+    [data-theme="dark"] .toggle-track { background: rgba(101,197,239,0.10); }
+    [data-theme="dark"] .toggle-track.brutto { background: rgba(101,197,239,0.22); border-color: rgba(101,197,239,0.35); }
+    [data-theme="dark"] .toggle-thumb { box-shadow: none; }
+    [data-theme="dark"] .feature-icon,
+    [data-theme="dark"] .help-card-icon,
+    [data-theme="dark"] .price-custom-badge,
+    [data-theme="dark"] .feat-tag,
+    [data-theme="dark"] .ssl-badge { border-color: rgba(101,197,239,0.22); }
+    [data-theme="dark"] .pricing-card.featured { box-shadow: 0 8px 30px -4px rgba(101,197,239,0.12), 0 2px 6px -1px rgba(0,0,0,0.2); }
+    [data-theme="dark"] .pricing-card.featured .pricing-card-header { background: rgba(101,197,239,0.08); border-bottom-color: rgba(101,197,239,0.18); }
+    [data-theme="dark"] .feat-list li::before {
+      background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='8' cy='8' r='7' stroke='%2365C5EF' stroke-width='1.2'/%3E%3Cpath d='M5 8l2 2 4-4' stroke='%2365C5EF' stroke-width='1.3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+    [data-theme="dark"] .help-card:hover { border-color: rgba(101,197,239,0.4); }
+    [data-theme="dark"] .config-box { border-color: rgba(101,197,239,0.28); }
+    [data-theme="dark"] .cluster-grid > .pricing-card-body + .pricing-card-body { background: rgba(101,197,239,0.03); }
+    [data-theme="dark"] .addon-card { border-color: rgba(101,197,239,0.35); }
+    [data-theme="dark"] a[aria-label^="Profil LinkedIn"] { border-color: rgba(101,197,239,0.25) !important; }
+    [data-theme="dark"] .nav-menu a[aria-current="page"] { box-shadow: none; }
+    [data-theme="dark"] footer { background: #061831; border-top: 1px solid var(--border); }
+</style>
+  <script>
+    /* MOTYW: jasny 7:00–18:59, ciemny 19:00–6:59. Ręczny wybór obowiązuje do najbliższej zmiany pory. */
+    (function () {
+      var DAY_START = 7, NIGHT_START = 19;
+      function autoTheme(d) { var h = d.getHours(); return (h >= DAY_START && h < NIGHT_START) ? 'light' : 'dark'; }
+      function nextSwitch(d) {
+        var n = new Date(d), h = d.getHours();
+        if (h < DAY_START) n.setHours(DAY_START, 0, 0, 0);
+        else if (h < NIGHT_START) n.setHours(NIGHT_START, 0, 0, 0);
+        else { n.setDate(n.getDate() + 1); n.setHours(DAY_START, 0, 0, 0); }
+        return n.getTime();
+      }
+      function current() {
+        try {
+          var o = JSON.parse(localStorage.getItem('rhoster-theme') || 'null');
+          if (o && o.until > Date.now() && (o.theme === 'light' || o.theme === 'dark')) return o.theme;
+        } catch (e) {}
+        return autoTheme(new Date());
+      }
+      function apply(t) {
+        document.documentElement.setAttribute('data-theme', t);
+        var b = document.getElementById('theme-toggle');
+        if (b) {
+          b.setAttribute('aria-checked', t === 'dark');
+          b.setAttribute('title', t === 'dark' ? 'Włącz jasny motyw' : 'Włącz ciemny motyw');
+        }
+      }
+      window.rhosterTheme = {
+        toggle: function () {
+          var t = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          try { localStorage.setItem('rhoster-theme', JSON.stringify({ theme: t, until: nextSwitch(new Date()) })); } catch (e) {}
+          apply(t);
+        },
+        refresh: function () { apply(current()); }
+      };
+      apply(current());
+      document.addEventListener('DOMContentLoaded', window.rhosterTheme.refresh);
+      setInterval(window.rhosterTheme.refresh, 60000);
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- Background decorative floating dots -->
+  <div class="glow"></div>
+  <div class="dot" style="width:3px;height:3px;left:10%;bottom:-10px;animation-duration:20s;animation-delay:0s;"></div>
+  <div class="dot" style="width:4px;height:4px;left:25%;bottom:-10px;animation-duration:17s;animation-delay:3s;"></div>
+  <div class="dot" style="width:3px;height:3px;left:60%;bottom:-10px;animation-duration:23s;animation-delay:7s;"></div>
+  <div class="dot" style="width:2px;height:2px;left:80%;bottom:-10px;animation-duration:19s;animation-delay:5s;"></div>
+  <div class="dot" style="width:4px;height:4px;left:45%;bottom:-10px;animation-duration:25s;animation-delay:12s;"></div>
+
+  <!-- NAV -->
+  <div class="wrap">
+    <nav>
+      <!-- Logo updated with #0B1E36 (dark navy) for text/shield and #38BDF8/#0284C7 for checkmark highlight -->
+      <a class="nav-logo" href="index.html" aria-label="rhoster — strona główna"><svg viewBox="0 0 1583 413" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="rhoster">
+        <path d="M599.42 202.468C595.2 201.393 590.288 200.319 584.686 199.168C579.007 198.016 572.945 197.479 566.499 197.479C563.583 197.479 560.053 197.709 555.985 198.247C551.918 198.784 548.848 199.321 546.7 199.935V326.038H499.965V169.848C508.33 166.932 518.229 164.169 529.587 161.559C540.944 158.95 553.683 157.645 567.727 157.645C570.259 157.645 573.252 157.799 576.859 158.106C580.389 158.413 583.996 158.873 587.526 159.334C591.056 159.871 594.662 160.485 598.192 161.252C601.723 162.02 604.792 162.864 607.325 163.939L599.497 202.545L599.42 202.468Z" fill="#0B1E36"/>
+        <path d="M632.342 326.038V90.1037L679.077 82.582V161.636C682.224 160.562 686.214 159.564 691.125 158.643C696.037 157.722 700.795 157.261 705.399 157.261C718.752 157.261 729.879 159.103 738.781 162.787C747.683 166.471 754.743 171.614 760.115 178.291C765.487 184.969 769.247 192.951 771.396 202.161C773.621 211.371 774.696 221.579 774.696 232.938V326.115H727.961V238.618C727.961 223.575 726.042 212.906 722.129 206.613C718.292 200.319 711.078 197.172 700.641 197.172C696.421 197.172 692.507 197.556 688.9 198.247C685.216 199.014 681.917 199.782 679.001 200.626V326.115H632.266L632.342 326.038Z" fill="#0B1E36"/>
+        <path d="M971.379 243.223C971.379 256.194 969.46 268.09 965.7 278.836C961.94 289.581 956.491 298.791 949.431 306.466C942.294 314.141 933.776 319.974 923.877 324.196C913.977 328.34 902.773 330.489 890.495 330.489C878.216 330.489 867.319 328.417 857.42 324.196C847.52 320.051 839.002 314.141 831.865 306.466C824.728 298.868 819.203 289.657 815.212 278.836C811.222 268.09 809.227 256.194 809.227 243.223C809.227 230.252 811.299 218.432 815.366 207.764C819.433 197.095 825.112 187.962 832.325 180.44C839.539 172.918 848.134 167.085 858.033 162.864C867.933 158.719 878.753 156.57 890.495 156.57C902.236 156.57 913.363 158.643 923.263 162.864C933.162 167.009 941.68 172.918 948.817 180.44C955.954 187.962 961.479 197.095 965.47 207.764C969.46 218.432 971.456 230.252 971.456 243.223H971.379ZM923.723 243.223C923.723 228.794 920.807 217.434 915.128 209.222C909.373 200.933 901.162 196.865 890.495 196.865C879.828 196.865 871.54 201.009 865.707 209.222C859.875 217.511 856.959 228.794 856.959 243.223C856.959 257.652 859.875 269.088 865.707 277.607C871.54 286.05 879.828 290.348 890.495 290.348C901.162 290.348 909.373 286.127 915.128 277.607C920.884 269.165 923.723 257.652 923.723 243.223Z" fill="#0B1E36"/>
+        <path d="M1054.8 292.497C1063.39 292.497 1069.46 291.653 1072.99 289.964C1076.52 288.276 1078.28 285.052 1078.28 280.217C1078.28 276.456 1075.98 273.156 1071.37 270.316C1066.77 267.476 1059.79 264.329 1050.35 260.722C1043.06 258.036 1036.38 255.196 1030.4 252.279C1024.41 249.363 1019.34 245.832 1015.2 241.765C1010.98 237.697 1007.76 232.785 1005.46 227.182C1003.15 221.502 1002 214.748 1002 206.766C1002 191.262 1007.76 179.059 1019.27 170.079C1030.78 161.099 1046.59 156.57 1066.62 156.57C1076.67 156.57 1086.26 157.491 1095.47 159.257C1104.68 161.022 1111.97 162.941 1117.42 165.09L1109.28 201.47C1103.84 199.551 1097.93 197.939 1091.56 196.481C1085.19 195.023 1078.05 194.255 1070.07 194.255C1055.41 194.255 1048.12 198.323 1048.12 206.459C1048.12 208.378 1048.43 209.989 1049.04 211.448C1049.66 212.906 1050.96 214.364 1052.8 215.669C1054.72 217.051 1057.25 218.509 1060.48 220.044C1063.7 221.656 1067.84 223.344 1072.83 225.263C1083.04 229.101 1091.56 232.785 1098.23 236.469C1104.91 240.153 1110.21 244.144 1114.04 248.442C1117.88 252.74 1120.64 257.499 1122.18 262.718C1123.71 267.937 1124.56 274 1124.56 280.908C1124.56 297.179 1118.42 309.459 1106.22 317.825C1094.01 326.191 1076.67 330.336 1054.34 330.336C1039.68 330.336 1027.56 329.108 1017.81 326.575C1008.06 324.042 1001.31 321.97 997.551 320.281L1005.38 282.289C1013.36 285.436 1021.49 287.892 1029.86 289.657C1038.22 291.423 1046.51 292.344 1054.65 292.344L1054.8 292.497Z" fill="#0B1E36"/>
+        <path d="M1158.01 119.96L1204.75 112.438V161.022H1260.92V199.935H1204.75V257.959C1204.75 267.784 1206.51 275.612 1209.89 281.522C1213.27 287.432 1220.33 290.272 1230.76 290.272C1235.75 290.272 1240.97 289.811 1246.27 288.89C1251.56 287.969 1256.47 286.664 1260.85 284.976L1267.45 321.356C1261.77 323.659 1255.55 325.654 1248.64 327.343C1241.74 329.031 1233.3 329.876 1223.24 329.876C1210.5 329.876 1199.91 328.187 1191.55 324.733C1183.19 321.279 1176.51 316.444 1171.44 310.304C1166.46 304.164 1162.93 296.642 1160.93 287.892C1158.94 279.143 1157.94 269.395 1157.94 258.727V119.96H1158.01Z" fill="#0B1E36"/>
+        <path d="M1284.71 244.758C1284.71 230.098 1286.94 217.281 1291.46 206.305C1295.99 195.33 1301.9 186.196 1309.19 178.828C1316.48 171.46 1324.92 165.934 1334.44 162.173C1343.95 158.412 1353.7 156.494 1363.75 156.494C1387.16 156.494 1405.65 163.632 1419.24 177.984C1432.82 192.337 1439.65 213.367 1439.65 241.227C1439.65 243.914 1439.57 246.907 1439.34 250.207C1439.11 253.431 1438.88 256.347 1438.73 258.803H1332.75C1333.82 268.397 1338.28 276.073 1346.26 281.675C1354.24 287.355 1364.83 290.118 1378.26 290.118C1386.85 290.118 1395.22 289.351 1403.5 287.739C1411.79 286.127 1418.55 284.208 1423.76 281.906L1430.06 319.898C1427.52 321.126 1424.22 322.43 1420 323.658C1415.78 324.886 1411.18 326.038 1406.04 326.959C1400.9 327.88 1395.45 328.724 1389.54 329.338C1383.71 329.952 1377.8 330.259 1371.96 330.259C1357.15 330.259 1344.18 328.033 1333.21 323.658C1322.24 319.284 1313.1 313.22 1305.89 305.622C1298.68 297.947 1293.38 288.967 1289.93 278.452C1286.48 268.014 1284.79 256.731 1284.79 244.604L1284.71 244.758ZM1394.45 226.875C1394.22 222.884 1393.53 219.046 1392.38 215.285C1391.23 211.524 1389.46 208.147 1387.01 205.231C1384.55 202.314 1381.56 199.858 1377.87 198.016C1374.19 196.174 1369.66 195.176 1364.21 195.176C1358.77 195.176 1354.47 196.097 1350.71 197.863C1346.95 199.628 1343.8 202.007 1341.27 204.924C1338.74 207.84 1336.82 211.218 1335.44 215.132C1334.05 218.969 1333.06 222.96 1332.44 226.875H1394.22H1394.45Z" fill="#0B1E36"/>
+        <path d="M1575.17 202.468C1570.95 201.393 1566.04 200.319 1560.44 199.168C1554.76 198.016 1548.7 197.479 1542.25 197.479C1539.34 197.479 1535.81 197.709 1531.74 198.247C1527.67 198.784 1524.6 199.321 1522.45 199.935V326.038H1475.72V169.848C1484.08 166.932 1493.98 164.169 1505.34 161.559C1516.7 158.95 1529.44 157.645 1543.48 157.645C1546.01 157.645 1549.01 157.799 1552.61 158.106C1556.14 158.413 1559.75 158.873 1563.28 159.334C1566.81 159.871 1570.42 160.485 1573.95 161.252C1577.48 162.02 1580.55 162.864 1583.08 163.939L1575.25 202.545L1575.17 202.468Z" fill="#0B1E36"/>
+        <path d="M365.206 5.14006C341.493 17.8041 316.706 31.3123 293.223 43.6693C276.954 52.2655 240.963 76.519 225.845 79.7426C186.554 88.262 154.246 91.7158 115.262 105.608C114.955 117.658 114.341 130.015 115.109 142.065C82.1871 159.334 51.4909 175.221 20.4111 195.868C13.5812 171.844 -5.68062 89.797 1.60971 66.3878C14.9625 43.3623 122.322 -18.0389 365.206 5.14006Z" fill="#0B1E36"/>
+        <path d="M180.797 412.998C113.496 367.254 58.0895 287.125 33.6094 232.785C45.1204 224.649 55.2502 218.816 68.1425 211.755C93.6971 263.793 132.374 296.335 182.716 328.648C259.456 254.736 332.897 145.442 406.414 67.5391C370.96 200.396 321.616 305.546 211.877 393.273C202.054 399.566 190.697 407.318 180.721 412.998H180.797Z" fill="#0B1E36"/>
+        <path d="M387.845 20.644L418.387 22.7163C398.742 50.8841 363.441 89.6437 339.575 117.504C286.777 179.213 235.285 244.835 179.878 304.164C157.93 290.195 134.908 274.308 118.025 254.199C104.059 239.079 94.1592 221.196 84.7969 203.006C85.0271 202.852 133.68 174.531 134.371 174.301C144.194 188.193 155.705 200.626 167.523 212.83" fill="#38BDF8"/>
+      </svg></a>
+      <ul class="nav-menu" aria-label="Menu"><li><a href="index.html" aria-current="page">Strona główna</a></li><li><a href="index-pomoc.html">Pomoc</a></li><li><a href="pomoc-konfiguracja-poczty.html">Konfiguracja poczty</a></li><li><button class="theme-toggle" id="theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Ciemny motyw" title="Włącz ciemny motyw" onclick="rhosterTheme.toggle()"><span class="theme-thumb" aria-hidden="true"><svg class="ico-sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="#FFFFFF" stroke-width="2.2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"/></svg><svg class="ico-moon" viewBox="0 0 24 24" fill="none"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z" stroke="#092040" stroke-width="2.2" stroke-linejoin="round"/></svg></span></button></li></ul>
+    </nav>
+  </div>
+
+  <!-- HERO -->
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-eyebrow"><div class="pulse"></div>hosting &amp; bezpieczeństwo</div>
+      <h1>My ogarniamy hosting<br>i <em>bezpieczeństwo.</em><br>Ty ogarniasz biznes.</h1>
+      <p class="hero-sub">Niezawodny hosting dla WordPress i sklepów internetowych. Bezpieczeństwo, szybkość i spokój głowy — w pakiecie.</p>
+      <p class="hero-sub-en">Reliable hosting for WordPress and online stores. Security, speed and peace of mind — included.</p>
+    </section>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="wrap">
+    <div class="features-grid">
+
+      <div class="feature-card reveal">
+        <div class="feature-card-header">
+          <div class="dot-r"></div><div class="dot-r"></div><div class="dot-r"></div>
+          <span class="feature-card-label">wydajność</span>
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 9a7 7 0 1114 0" stroke="#0284C7" stroke-width="1.3" stroke-linecap="round"/><path d="M9 9l-3-3" stroke="#0284C7" stroke-width="1.3" stroke-linecap="round"/><circle cx="9" cy="9" r="1.5" fill="#0284C7"/></svg>
+          </div>
+          <div class="feature-title">Superszybkie bazy danych</div>
+          <p class="feature-desc">Twoja strona ładuje się błyskawicznie. Bez kompromisów.</p>
+          <p class="feature-desc-en">Your site loads lightning fast. No compromises.</p>
+        </div>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-card-header">
+          <div class="dot-r"></div><div class="dot-r"></div><div class="dot-r"></div>
+          <span class="feature-card-label">bezpieczeństwo</span>
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 2L3 5v5c0 3.5 2.5 6.5 6 7.5C12.5 16.5 15 13.5 15 10V5L9 2Z" stroke="#0284C7" stroke-width="1.3" stroke-linejoin="round"/><path d="M6.5 9l2 2 3-3" stroke="#0284C7" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="feature-title">Kopia i ochrona antywirusowa</div>
+          <p class="feature-desc">Codzienna kopia bezpieczeństwa. Skanowanie antywirusowe plików i poczty e-mail.</p>
+          <p class="feature-desc-en">Daily backups. Antivirus scanning of files and email.</p>
+        </div>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-card-header">
+          <div class="dot-r"></div><div class="dot-r"></div><div class="dot-r"></div>
+          <span class="feature-card-label">poczta</span>
+        </div>
+        <div class="feature-card-body">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="#0284C7" stroke-width="1.3"/><path d="M2 7l7 4.5L16 7" stroke="#0284C7" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </div>
+          <div class="feature-title">Poczta w Twojej domenie</div>
+          <p class="feature-desc">Profesjonalny adres e-mail bez reklam. Twoja marka, Twoje zasady.</p>
+          <p class="feature-desc-en">Professional email, no ads. Your brand, your rules.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="wrap"><div class="section-divider"></div></div>
+
+  <!-- PRICING -->
+  <div class="wrap">
+    <div class="pricing-header reveal">
+      <p class="section-label">Pakiety / Plans</p>
+      <h2>Wybierz swój <em>plan</em></h2>
+    </div>
+
+    <div class="toggle-wrap reveal">
+      <span class="toggle-label active" id="lbl-netto">netto</span>
+      <div class="toggle-track" id="tax-toggle" role="switch" aria-checked="false" tabindex="0" aria-label="Przełącz netto/brutto">
+        <div class="toggle-thumb"></div>
+      </div>
+      <span class="toggle-label" id="lbl-brutto">brutto</span>
+    </div>
+
+    <div class="pricing-grid">
+
+      <!-- rBasic -->
+      <div class="pricing-card reveal">
+        <div class="pricing-card-header">
+          <div class="dot-r"></div><div class="dot-r"></div><div class="dot-r"></div>
+          <span class="pricing-card-name">rBasic</span>
+        </div>
+        <div class="pricing-card-body">
+          <p class="pricing-desc">Hosting dla WordPress</p>
+          <p class="pricing-desc-en" style="margin-top:-0.9rem;">WordPress hosting</p>
+          <div class="price-block">
+            <div class="price-amount"><sup>zł</sup><span class="price-val" data-netto="349" data-brutto="429">349</span></div>
+            <div class="price-period">/ rok · per year</div>
+            <div class="price-tax-note price-note">cena netto · bez VAT</div>
+          </div>
+          <ul class="feat-list">
+            <li>Pojemność <strong style="color:var(--navy-brand)">5 GB</strong></li>
+            <li>Transfer bez limitu</li>
+            <li>Konta e-mail <strong style="color:var(--navy-brand)">1</strong>
+              <span class="feat-note">każde dodatkowe 25 zł netto / rok</span>
+            </li>
+            <li>Liczba stron WWW bez ograniczeń</li>
+            <li>Kopia bezpieczeństwa codziennie</li>
+            <li>PHP od wersji <strong style="color:var(--navy-brand)">8.3</strong></li>
+            <li>Bezpieczny dostęp SSH</li>
+            <li>Wsparcie techniczne</li>
+            <li>GTM Server-Side <span class="feat-tag">included</span></li>
+            <li>SLA <strong style="color:var(--navy-brand)">99%</strong></li>
+          </ul>
+          <div class="feat-divider"></div>
+          <div class="ssl-badge">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="5" width="10" height="6" rx="1.5" stroke="#0284C7" stroke-width="1"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="#0284C7" stroke-width="1" stroke-linecap="round"/></svg>
+            SSL w cenie
+          </div>
+        </div>
+      </div>
+
+      <!-- rStore -->
+      <div class="pricing-card featured reveal">
+        <div class="pricing-card-header">
+          <div class="dot-r"></div><div class="dot-r"></div><div class="dot-r"></div>
+          <span class="pricing-card-name">rStore</span>
+        </div>
+        <div class="pricing-card-body">
+          <p class="pricing-desc">Hosting dla sklepu internetowego</p>
+          <p class="pricing-desc-en" style="margin-top:-0.9rem;">E-commerce hosting</p>
+          <div class="price-block">
+            <div class="price-amount"><sup>zł</sup><span class="price-val" data-netto="649" data-brutto="798">649</span></div>
+            <div class="price-period">/ rok · per year</div>
+            <div class="price-tax-note price-note">cena netto · bez VAT</div>
+          </div>
+          <ul class="feat-list">
+            <li>Pojemność <strong style="color:var(--navy-brand)">25 GB</strong></li>
+            <li>Transfer bez limitu</li>
+            <li>Konta e-mail <strong style="color:var(--navy-brand)">3</strong></li>
+            <li>Kopia bezpieczeństwa codziennie</li>
+            <li>PHP od wersji <strong style="color:var(--navy-brand)">8.3</strong></li>
+            <li>Bezpieczny dostęp SSH</li>
+            <li>Ochrona antywirusowa</li>
+            <li>Wsparcie techniczne</li>
+            <li>GTM Server-Side <span class="feat-tag">included</span></li>
+            <li>SLA <strong style="color:var(--navy-brand)">99%</strong></li>
+          </ul>
+          <div class="feat-divider"></div>
+          <div class="ssl-badge">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="5" width="10" height="6" rx="1.5" stroke="#0284C7" stroke-width="1"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="#0284C7" stroke-width="1" stroke-linecap="round"/></svg>
+            SSL w cenie
+          </div>
+        </div>
+      </div>
+
+      <!-- rCustom -->
+      <div class="pricing-card reveal">
+        <div class="pricing-card-header">
+          <div class="dot-r"></div><div class="dot-r"></div><div class="dot-r"></div>
+          <span class="pricing-card-name">rCustom</span>
+        </div>
+        <div class="pricing-card-body">
+          <p class="pricing-desc">Hosting, DevOps i zarządzanie infrastrukturą</p>
+          <p class="pricing-desc-en" style="margin-top:-0.9rem;">Hosting, DevOps &amp; infrastructure management</p>
+          <div class="price-custom">
+            <div class="price-custom-badge">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="6" width="12" height="7" rx="1.5" stroke="#0284C7" stroke-width="1.1"/><path d="M4 6V4.5a3 3 0 016 0V6" stroke="#0284C7" stroke-width="1.1" stroke-linecap="round"/></svg>
+              <span class="price-custom-label">Z polecenia</span>
+            </div>
+            <p class="price-custom-sub">Wycena indywidualna · Individual pricing<br>Dostępny wyłącznie z rekomendacji</p>
+          </div>
+          <ul class="feat-list">
+            <li>Dedykowana infrastruktura</li>
+            <li>Opieka DevOps</li>
+            <li>Zarządzanie cudzą infrastrukturą</li>
+            <li>Bezpieczeństwo &amp; monitoring</li>
+            <li>GTM Server-Side <span class="feat-tag">included</span></li>
+            <li>Wsparcie techniczne priorytetowe</li>
+            <li>SLA ustalane indywidualnie</li>
+          </ul>
+          <div class="feat-divider"></div>
+          <div class="ssl-badge">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="5" width="10" height="6" rx="1.5" stroke="#0284C7" stroke-width="1"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="#0284C7" stroke-width="1" stroke-linecap="round"/></svg>
+            SSL w cenie
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- rCluster -->
+    <div class="pricing-card featured cluster-card reveal" id="rcluster">
+      <div class="pricing-card-header">
+        <div class="dot-r"></div><div class="dot-r"></div><div class="dot-r"></div>
+        <span class="pricing-card-name">rCluster</span>
+      </div>
+      <div class="cluster-grid">
+        <div class="pricing-card-body">
+          <p class="pricing-desc">Infrastruktura wysokiej dostępności</p>
+          <p class="pricing-desc-en" style="margin-top:-0.9rem;">High-availability infrastructure</p>
+          <div class="price-block">
+            <div class="price-amount"><span class="price-from">od</span><sup>zł</sup><span class="price-val" data-netto="590" data-brutto="726">590</span></div>
+            <div class="price-period">/ miesiąc · per month</div>
+            <div class="price-tax-note price-note">cena netto · bez VAT</div>
+          </div>
+          <ul class="feat-list">
+            <li><span><strong style="color:var(--navy-brand)">3 serwery</strong>: load balancer + 2 serwery aplikacyjne</span></li>
+            <li>Automatyczne przełączanie ruchu przy awarii</li>
+            <li><span>Redundantna kopia danych, <strong style="color:var(--navy-brand)">7 dni</strong> wstecz</span></li>
+            <li>Redundantny SMTP na obu ścieżkach</li>
+            <li>Opieka i monitoring w cenie</li>
+            <li>SLA <strong style="color:var(--navy-brand)">99,99%</strong></li>
+          </ul>
+          <div class="feat-divider"></div>
+          <div class="ssl-badge">
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><rect x="1" y="5" width="10" height="6" rx="1.5" stroke="#0284C7" stroke-width="1"/><path d="M4 5V3.5a2 2 0 014 0V5" stroke="#0284C7" stroke-width="1" stroke-linecap="round"/></svg>
+            SSL w cenie
+          </div>
+        </div>
+        <div class="pricing-card-body">
+          <div class="cluster-title">Sklep, który <em>nie ma przerw.</em></div>
+          <p class="cluster-text">Na zwykłym hostingu Twoja strona działa na jednym serwerze. Gdy ten serwer ma awarię, strona znika. W rCluster pracują dla Ciebie trzy maszyny: load balancer rozdziela ruch na dwa niezależne serwery aplikacyjne. Jeśli jeden z nich przestanie odpowiadać, drugi przejmuje ruch automatycznie, a klienci niczego nie zauważają.</p>
+          <p class="cluster-text"><strong>Dla kogo?</strong> Dla sklepów i serwisów, w których każda godzina przestoju to utracone zamówienia: e-commerce w szczycie sezonu, kampanie reklamowe, systemy rezerwacji.</p>
+          <p class="cluster-subtitle">Co dostajesz</p>
+          <ul class="feat-list">
+            <li><span><strong style="color:var(--navy-brand)">Ciągłość działania:</strong> awaria jednego serwera nie zatrzymuje sprzedaży.</span></li>
+            <li><span><strong style="color:var(--navy-brand)">Aktualizacje bez przerw:</strong> prace serwisowe wykonujemy na jednym serwerze, drugi w tym czasie obsługuje ruch.</span></li>
+            <li><span><strong style="color:var(--navy-brand)">Zapas mocy:</strong> ruch rozkłada się na dwie maszyny, więc skoki odwiedzin nie spowalniają strony.</span></li>
+            <li><span><strong style="color:var(--navy-brand)">Bezpieczne dane:</strong> redundantna kopia zapasowa z możliwością cofnięcia się o 7 dni.</span></li>
+            <li><span><strong style="color:var(--navy-brand)">Poczta, która dochodzi:</strong> wysyłka wiadomości działa na obu ścieżkach.</span></li>
+            <li><span><strong style="color:var(--navy-brand)">SLA 99,99%:</strong> gwarantowana dostępność zapisana w umowie.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dodatek: zewnętrzny SMTP -->
+    <div class="addon-card reveal" id="smtp">
+      <div class="addon-main">
+        <p class="addon-label">Dodatek do każdego pakietu · Add-on</p>
+        <div class="addon-title">Zewnętrzny SMTP</div>
+        <p class="addon-desc">Potwierdzenia zamówień, faktury i resetowanie haseł wysyłane przez osobny, dedykowany serwer pocztowy. Wiadomości ze sklepu nie trafiają do spamu i wychodzą nawet wtedy, gdy główny serwer jest obciążony.</p>
+      </div>
+      <div class="addon-price">
+        <div class="price-amount"><sup>zł</sup><span class="price-val" data-netto="99" data-brutto="122">99</span></div>
+        <div class="price-tax-note price-note">cena netto · bez VAT</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEO/LLM hidden -->
+  <div class="seo-hidden" aria-hidden="true">
+    <h2>Często zadawane pytania o rhoster</h2>
+    <dl>
+      <dt>Co to jest rhoster?</dt><dd>rhoster to firma hostingowa oferująca niezawodny hosting dla WordPress i sklepów internetowych, bezpieczeństwo, GTM server-side, codzienne kopie bezpieczeństwa, SSH, PHP 8.3 i pocztę e-mail we własnej domenie. rhoster is a hosting company providing reliable WordPress and e-commerce hosting with security, GTM server-side, daily backups and custom domain email.</dd>
+      <dt>Jakie pakiety oferuje rhoster?</dt><dd>rhoster oferuje cztery pakiety: rBasic (hosting WordPress, 5 GB, 349 zł netto/rok), rStore (hosting sklepu, 25 GB, 649 zł netto/rok), rCluster (infrastruktura wysokiej dostępności: load balancer + 2 serwery aplikacyjne, SLA 99,99%, od 590 zł netto/miesiąc) oraz rCustom (dedykowany hosting i DevOps, dostępny wyłącznie z polecenia). Do każdego pakietu można dokupić zewnętrzny SMTP za 99 zł netto. Wszystkie zawierają SSL i GTM server-side.</dd>
+      <dt>Co to jest GTM server-side?</dt><dd>GTM server-side to technologia uruchamiania tagów analitycznych po stronie serwera. Poprawia wydajność, bezpieczeństwo i dokładność śledzenia. rhoster oferuje GTM server-side w każdym pakiecie hostingowym.</dd>
+      <dt>Jak skontaktować się z rhoster?</dt><dd>rhoster pracuje wyłącznie z klientami z polecenia. Pakiet rCustom jest dostępny wyłącznie poprzez rekomendacje obecnych klientów.</dd>
+    </dl>
+  </div>
+
+  <!-- PARTNERS -->
+  <div class="wrap">
+    <div class="section-divider"></div>
+    <div class="pricing-header reveal">
+      <p class="section-label">Reseller / Partner</p>
+      <h2>Zaufani <em>partnerzy</em></h2>
+    </div>
+    <div class="partners-grid">
+
+      <!-- Radosław Jaszek -->
+      <div class="feature-card reveal" style="text-align:center;">
+        <div class="feature-card-header">
+          <div class="dot-r"></div><div class="dot-r"></div><div class="dot-r"></div>
+          <span class="feature-card-label">partner</span>
+        </div>
+        <div class="feature-card-body" style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;padding:1.5rem;">
+          <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:2px solid var(--border-strong);flex-shrink:0;">
+            <img src="img/radoslaw_jaszek.jpg" alt="Radosław Jaszek" width="88" height="88"
+              style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
+          </div>
+          <p style="font-family:var(--serif);font-size:17px;color:var(--navy-brand);margin:0;">Radosław Jaszek</p>
+          <a href="https://www.linkedin.com/in/rados%C5%82aw-jaszek/" target="_blank" rel="noopener noreferrer"
+            style="display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid rgba(2, 132, 199, 0.25);padding:6px 14px;border-radius:6px;text-decoration:none;font-weight:500;"
+            aria-label="Profil LinkedIn Radosław Jaszek">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#0284C7"><path d="M20.447 20.452H17.01v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.588V9h3.299v1.561h.046c.46-.869 1.583-1.785 3.259-1.785 3.486 0 4.13 2.294 4.13 5.276l.125 6.4zM5.337 7.433a1.91 1.91 0 110-3.82 1.91 1.91 0 010 3.82zm1.651 13.019H3.684V9h3.304v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Przemysław Jaworowski -->
+      <div class="feature-card reveal" style="text-align:center;">
+        <div class="feature-card-header">
+          <div class="dot-r"></div><div class="dot-r"></div><div class="dot-r"></div>
+          <span class="feature-card-label">partner</span>
+        </div>
+        <div class="feature-card-body" style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;padding:1.5rem;">
+          <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:2px solid var(--border-strong);flex-shrink:0;">
+            <img src="img/przemyslaw_jaworowski.jpg" alt="Przemysław Jaworowski" width="88" height="88"
+              style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
+          </div>
+          <p style="font-family:var(--serif);font-size:17px;color:var(--navy-brand);margin:0;">Przemysław Jaworowski</p>
+          <a href="https://www.linkedin.com/in/jaworowski/" target="_blank" rel="noopener noreferrer"
+            style="display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid rgba(2, 132, 199, 0.25);padding:6px 14px;border-radius:6px;text-decoration:none;font-weight:500;"
+            aria-label="Profil LinkedIn Przemysław Jaworowski">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#0284C7"><path d="M20.447 20.452H17.01v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.588V9h3.299v1.561h.046c.46-.869 1.583-1.785 3.259-1.785 3.486 0 4.13 2.294 4.13 5.276l.125 6.4zM5.337 7.433a1.91 1.91 0 110-3.82 1.91 1.91 0 010 3.82zm1.651 13.019H3.684V9h3.304v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Tomasz Moor -->
+      <div class="feature-card reveal" style="text-align:center;">
+        <div class="feature-card-header">
+          <div class="dot-r"></div><div class="dot-r"></div><div class="dot-r"></div>
+          <span class="feature-card-label">partner</span>
+        </div>
+        <div class="feature-card-body" style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;padding:1.5rem;">
+          <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:2px solid var(--border-strong);flex-shrink:0;">
+            <img src="img/tomasz_moor.png" alt="Tomasz Moor" width="88" height="88"
+              style="width:100%;height:100%;object-fit:cover;object-position:center 0%;" loading="lazy" />
+          </div>
+          <p style="font-family:var(--serif);font-size:17px;color:var(--navy-brand);margin:0;">Tomasz Moor</p>
+          <a href="https://www.linkedin.com/in/tomaszmoor/" target="_blank" rel="noopener noreferrer"
+            style="display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid rgba(2, 132, 199, 0.25);padding:6px 14px;border-radius:6px;text-decoration:none;font-weight:500;"
+            aria-label="Profil LinkedIn Tomasz Moor">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#0284C7"><path d="M20.447 20.452H17.01v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.588V9h3.299v1.561h.046c.46-.869 1.583-1.785 3.259-1.785 3.486 0 4.13 2.294 4.13 5.276l.125 6.4zM5.337 7.433a1.91 1.91 0 110-3.82 1.91 1.91 0 010 3.82zm1.651 13.019H3.684V9h3.304v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Beata Jaszek -->
+      <div class="feature-card reveal" style="text-align:center;">
+        <div class="feature-card-header">
+          <div class="dot-r"></div><div class="dot-r"></div><div class="dot-r"></div>
+          <span class="feature-card-label">partner</span>
+        </div>
+        <div class="feature-card-body" style="display:flex;flex-direction:column;align-items:center;gap:0.75rem;padding:1.5rem;">
+          <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:2px solid var(--border-strong);flex-shrink:0;">
+            <img src="img/beata_jaszek.jpg" alt="Beata Jaszek" width="88" height="88"
+              style="width:100%;height:100%;object-fit:cover;" loading="lazy" />
+          </div>
+          <p style="font-family:var(--serif);font-size:17px;color:var(--navy-brand);margin:0;">Beata Jaszek</p>
+          <a href="https://www.linkedin.com/in/beata-jaszek-21403a431/" target="_blank" rel="noopener noreferrer"
+            style="display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);background:var(--accent-dim);border:1px solid rgba(2, 132, 199, 0.25);padding:6px 14px;border-radius:6px;text-decoration:none;font-weight:500;"
+            aria-label="Profil LinkedIn Beata Jaszek">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="#0284C7"><path d="M20.447 20.452H17.01v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.588V9h3.299v1.561h.046c.46-.869 1.583-1.785 3.259-1.785 3.486 0 4.13 2.294 4.13 5.276l.125 6.4zM5.337 7.433a1.91 1.91 0 110-3.82 1.91 1.91 0 010 3.82zm1.651 13.019H3.684V9h3.304v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <svg viewBox="0 0 1583 413" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="rhoster logo">
+            <path d="M599.42 202.468C595.2 201.393 590.288 200.319 584.686 199.168C579.007 198.016 572.945 197.479 566.499 197.479C563.583 197.479 560.053 197.709 555.985 198.247C551.918 198.784 548.848 199.321 546.7 199.935V326.038H499.965V169.848C508.33 166.932 518.229 164.169 529.587 161.559C540.944 158.95 553.683 157.645 567.727 157.645C570.259 157.645 573.252 157.799 576.859 158.106C580.389 158.413 583.996 158.873 587.526 159.334C591.056 159.871 594.662 160.485 598.192 161.252C601.723 162.02 604.792 162.864 607.325 163.939L599.497 202.545L599.42 202.468Z" fill="#0B1E36"/>
+            <path d="M632.342 326.038V90.1037L679.077 82.582V161.636C682.224 160.562 686.214 159.564 691.125 158.643C696.037 157.722 700.795 157.261 705.399 157.261C718.752 157.261 729.879 159.103 738.781 162.787C747.683 166.471 754.743 171.614 760.115 178.291C765.487 184.969 769.247 192.951 771.396 202.161C773.621 211.371 774.696 221.579 774.696 232.938V326.115H727.961V238.618C727.961 223.575 726.042 212.906 722.129 206.613C718.292 200.319 711.078 197.172 700.641 197.172C696.421 197.172 692.507 197.556 688.9 198.247C685.216 199.014 681.917 199.782 679.001 200.626V326.115H632.266L632.342 326.038Z" fill="#0B1E36"/>
+            <path d="M971.379 243.223C971.379 256.194 969.46 268.09 965.7 278.836C961.94 289.581 956.491 298.791 949.431 306.466C942.294 314.141 933.776 319.974 923.877 324.196C913.977 328.34 902.773 330.489 890.495 330.489C878.216 330.489 867.319 328.417 857.42 324.196C847.52 320.051 839.002 314.141 831.865 306.466C824.728 298.868 819.203 289.657 815.212 278.836C811.222 268.09 809.227 256.194 809.227 243.223C809.227 230.252 811.299 218.432 815.366 207.764C819.433 197.095 825.112 187.962 832.325 180.44C839.539 172.918 848.134 167.085 858.033 162.864C867.933 158.719 878.753 156.57 890.495 156.57C902.236 156.57 913.363 158.643 923.263 162.864C933.162 167.009 941.68 172.918 948.817 180.44C955.954 187.962 961.479 197.095 965.47 207.764C969.46 218.432 971.456 230.252 971.456 243.223H971.379ZM923.723 243.223C923.723 228.794 920.807 217.434 915.128 209.222C909.373 200.933 901.162 196.865 890.495 196.865C879.828 196.865 871.54 201.009 865.707 209.222C859.875 217.511 856.959 228.794 856.959 243.223C856.959 257.652 859.875 269.088 865.707 277.607C871.54 286.05 879.828 290.348 890.495 290.348C901.162 290.348 909.373 286.127 915.128 277.607C920.884 269.165 923.723 257.652 923.723 243.223Z" fill="#0B1E36"/>
+            <path d="M1054.8 292.497C1063.39 292.497 1069.46 291.653 1072.99 289.964C1076.52 288.276 1078.28 285.052 1078.28 280.217C1078.28 276.456 1075.98 273.156 1071.37 270.316C1066.77 267.476 1059.79 264.329 1050.35 260.722C1043.06 258.036 1036.38 255.196 1030.4 252.279C1024.41 249.363 1019.34 245.832 1015.2 241.765C1010.98 237.697 1007.76 232.785 1005.46 227.182C1003.15 221.502 1002 214.748 1002 206.766C1002 191.262 1007.76 179.059 1019.27 170.079C1030.78 161.099 1046.59 156.57 1066.62 156.57C1076.67 156.57 1086.26 157.491 1095.47 159.257C1104.68 161.022 1111.97 162.941 1117.42 165.09L1109.28 201.47C1103.84 199.551 1097.93 197.939 1091.56 196.481C1085.19 195.023 1078.05 194.255 1070.07 194.255C1055.41 194.255 1048.12 198.323 1048.12 206.459C1048.12 208.378 1048.43 209.989 1049.04 211.448C1049.66 212.906 1050.96 214.364 1052.8 215.669C1054.72 217.051 1057.25 218.509 1060.48 220.044C1063.7 221.656 1067.84 223.344 1072.83 225.263C1083.04 229.101 1091.56 232.785 1098.23 236.469C1104.91 240.153 1110.21 244.144 1114.04 248.442C1117.88 252.74 1120.64 257.499 1122.18 262.718C1123.71 267.937 1124.56 274 1124.56 280.908C1124.56 297.179 1118.42 309.459 1106.22 317.825C1094.01 326.191 1076.67 330.336 1054.34 330.336C1039.68 330.336 1027.56 329.108 1017.81 326.575C1008.06 324.042 1001.31 321.97 997.551 320.281L1005.38 282.289C1013.36 285.436 1021.49 287.892 1029.86 289.657C1038.22 291.423 1046.51 292.344 1054.65 292.344L1054.8 292.497Z" fill="#0B1E36"/>
+            <path d="M1158.01 119.96L1204.75 112.438V161.022H1260.92V199.935H1204.75V257.959C1204.75 267.784 1206.51 275.612 1209.89 281.522C1213.27 287.432 1220.33 290.272 1230.76 290.272C1235.75 290.272 1240.97 289.811 1246.27 288.89C1251.56 287.969 1256.47 286.664 1260.85 284.976L1267.45 321.356C1261.77 323.659 1255.55 325.654 1248.64 327.343C1241.74 329.031 1233.3 329.876 1223.24 329.876C1210.5 329.876 1199.91 328.187 1191.55 324.733C1183.19 321.279 1176.51 316.444 1171.44 310.304C1166.46 304.164 1162.93 296.642 1160.93 287.892C1158.94 279.143 1157.94 269.395 1157.94 258.727V119.96H1158.01Z" fill="#0B1E36"/>
+            <path d="M1284.71 244.758C1284.71 230.098 1286.94 217.281 1291.46 206.305C1295.99 195.33 1301.9 186.196 1309.19 178.828C1316.48 171.46 1324.92 165.934 1334.44 162.173C1343.95 158.412 1353.7 156.494 1363.75 156.494C1387.16 156.494 1405.65 163.632 1419.24 177.984C1432.82 192.337 1439.65 213.367 1439.65 241.227C1439.65 243.914 1439.57 246.907 1439.34 250.207C1439.11 253.431 1438.88 256.347 1438.73 258.803H1332.75C1333.82 268.397 1338.28 276.073 1346.26 281.675C1354.24 287.355 1364.83 290.118 1378.26 290.118C1386.85 290.118 1395.22 289.351 1403.5 287.739C1411.79 286.127 1418.55 284.208 1423.76 281.906L1430.06 319.898C1427.52 321.126 1424.22 322.43 1420 323.658C1415.78 324.886 1411.18 326.038 1406.04 326.959C1400.9 327.88 1395.45 328.724 1389.54 329.338C1383.71 329.952 1377.8 330.259 1371.96 330.259C1357.15 330.259 1344.18 328.033 1333.21 323.658C1322.24 319.284 1313.1 313.22 1305.89 305.622C1298.68 297.947 1293.38 288.967 1289.93 278.452C1286.48 268.014 1284.79 256.731 1284.79 244.604L1284.71 244.758ZM1394.45 226.875C1394.22 222.884 1393.53 219.046 1392.38 215.285C1391.23 211.524 1389.46 208.147 1387.01 205.231C1384.55 202.314 1381.56 199.858 1377.87 198.016C1374.19 196.174 1369.66 195.176 1364.21 195.176C1358.77 195.176 1354.47 196.097 1350.71 197.863C1346.95 199.628 1343.8 202.007 1341.27 204.924C1338.74 207.84 1336.82 211.218 1335.44 215.132C1334.05 218.969 1333.06 222.96 1332.44 226.875H1394.22H1394.45Z" fill="#0B1E36"/>
+            <path d="M1575.17 202.468C1570.95 201.393 1566.04 200.319 1560.44 199.168C1554.76 198.016 1548.7 197.479 1542.25 197.479C1539.34 197.479 1535.81 197.709 1531.74 198.247C1527.67 198.784 1524.6 199.321 1522.45 199.935V326.038H1475.72V169.848C1484.08 166.932 1493.98 164.169 1505.34 161.559C1516.7 158.95 1529.44 157.645 1543.48 157.645C1546.01 157.645 1549.01 157.799 1552.61 158.106C1556.14 158.413 1559.75 158.873 1563.28 159.334C1566.81 159.871 1570.42 160.485 1573.95 161.252C1577.48 162.02 1580.55 162.864 1583.08 163.939L1575.25 202.545L1575.17 202.468Z" fill="#0B1E36"/>
+            <path d="M365.206 5.14006C341.493 17.8041 316.706 31.3123 293.223 43.6693C276.954 52.2655 240.963 76.519 225.845 79.7426C186.554 88.262 154.246 91.7158 115.262 105.608C114.955 117.658 114.341 130.015 115.109 142.065C82.1871 159.334 51.4909 175.221 20.4111 195.868C13.5812 171.844 -5.68062 89.797 1.60971 66.3878C14.9625 43.3623 122.322 -18.0389 365.206 5.14006Z" fill="#0B1E36"/>
+            <path d="M180.797 412.998C113.496 367.254 58.0895 287.125 33.6094 232.785C45.1204 224.649 55.2502 218.816 68.1425 211.755C93.6971 263.793 132.374 296.335 182.716 328.648C259.456 254.736 332.897 145.442 406.414 67.5391C370.96 200.396 321.616 305.546 211.877 393.273C202.054 399.566 190.697 407.318 180.721 412.998H180.797Z" fill="#0B1E36"/>
+            <path d="M387.845 20.644L418.387 22.7163C398.742 50.8841 363.441 89.6437 339.575 117.504C286.777 179.213 235.285 244.835 179.878 304.164C157.93 290.195 134.908 274.308 118.025 254.199C104.059 239.079 94.1592 221.196 84.7969 203.006C85.0271 202.852 133.68 174.531 134.371 174.301C144.194 188.193 155.705 200.626 167.523 212.83" fill="#38BDF8"/>
+          </svg>
+          <p class="footer-slogan">My ogarniamy hosting i bezpieczeństwo. Ty ogarniasz biznes.</p>
+        </div>
+
+        <div>
+          <p class="footer-title">Pakiety</p>
+          <ul class="footer-list">
+            <li><a href="#">rBasic — WordPress</a></li>
+            <li><a href="#">rStore — E-Commerce</a></li>
+            <li><a href="#">rCustom — DevOps & Infrastructure</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <p class="footer-title">Dostępność</p>
+          <p class="footer-note">Usługi rhoster świadczone są w modelu zamkniętym, dostępnym wyłącznie na bazie rekomendacji i poleceń dotychczasowych partnerów.</p>
+        </div>
+      </div>
+
+      <div class="footer-company">FEED BROKER sp. z o.o., Al. Kasztanowa 3A–5, 53-125 Wrocław, Polska &nbsp;·&nbsp; KRS: 0001048725 &nbsp;·&nbsp; NIP: 8992966890 &nbsp;·&nbsp; REGON: 52593366</div>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(el => observer.observe(el));
+
+    const track = document.getElementById('tax-toggle');
+    const lblNetto = document.getElementById('lbl-netto');
+    const lblBrutto = document.getElementById('lbl-brutto');
+    let isBrutto = false;
+
+    function updatePrices() {
+      document.querySelectorAll('.price-val').forEach(el => {
+        el.textContent = isBrutto ? el.dataset.brutto : el.dataset.netto;
+      });
+      document.querySelectorAll('.price-note').forEach(el => {
+        el.textContent = isBrutto ? 'cena brutto · zawiera VAT 23%' : 'cena netto · bez VAT';
+      });
+      track.classList.toggle('brutto', isBrutto);
+      track.setAttribute('aria-checked', isBrutto);
+      lblNetto.classList.toggle('active', !isBrutto);
+      lblBrutto.classList.toggle('active', isBrutto);
+    }
+
+    track.addEventListener('click', () => { isBrutto = !isBrutto; updatePrices(); });
+    track.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); isBrutto = !isBrutto; updatePrices(); } });
+  </script>
+
+</body>
+</html>
